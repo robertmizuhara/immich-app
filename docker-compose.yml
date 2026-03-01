@@ -30,6 +30,13 @@ services:
     restart: always
     healthcheck:
       disable: false
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 3G
+        reservations:
+          memory: 512M
 
   immich-machine-learning:
     container_name: immich_machine_learning
@@ -46,6 +53,13 @@ services:
     restart: always
     healthcheck:
       disable: false
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 3G
+        reservations:
+          memory: 256M
 
   redis:
     container_name: immich_redis
@@ -53,6 +67,13 @@ services:
     healthcheck:
       test: redis-cli ping || exit 1
     restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+        reservations:
+          memory: 64M
 
   database:
     container_name: immich_postgres
@@ -71,6 +92,13 @@ services:
     restart: always
     healthcheck:
       disable: false
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          memory: 256M
 
   backup:
     image: restic/restic:latest
@@ -86,6 +114,13 @@ services:
     environment:
       - RESTIC_PASSWORD=${RESTIC_PASSWORD}
     entrypoint: ["/bin/sh", "/backup.sh"]
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 128M
+        reservations:
+          memory: 64M
 
 volumes:
   model-cache:
