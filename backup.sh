@@ -6,12 +6,12 @@ REPO_HOST=$(echo "$REPO_URL" | sed -n 's|.*@\([^:]*\):\([0-9]*\)/.*|\1:\2|p')
 
 echo "Starting backup service..."
 
-echo "Waiting 3 seconds for services to initialize..."
-sleep 3
+echo "Waiting 1.5 seconds for services to initialize..."
+sleep 1.5
 
 while true; do
   echo "Checking connectivity to ${REPO_HOST}..."
-  if curl -s --connect-timeout 5 --max-time 10 "http://${REPO_HOST}" > /dev/null 2>&1; then
+  if nc -z -w5 ${REPO_HOST}; then
     echo "Server reachable, initializing repository..."
     restic init --repo ${RESTIC_REPO} || true
     echo "Server reachable, attempting backup..."
