@@ -30,13 +30,6 @@ services:
     restart: always
     healthcheck:
       disable: false
-    deploy:
-      resources:
-        limits:
-          cpus: '2'
-          memory: 3G
-        reservations:
-          memory: 512M
 
   immich-machine-learning:
     container_name: immich_machine_learning
@@ -51,15 +44,12 @@ services:
     env_file:
       - .env
     restart: always
-    healthcheck:
-      disable: false
     deploy:
       resources:
         limits:
           cpus: '2'
-          memory: 3G
-        reservations:
-          memory: 256M
+    healthcheck:
+      disable: false
 
   redis:
     container_name: immich_redis
@@ -70,7 +60,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
+          cpus: '0.25'
           memory: 256M
         reservations:
           memory: 64M
@@ -117,8 +107,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
-          memory: 128M
+          cpus: '4.0'
+          memory: 1G
         reservations:
           memory: 64M
 
