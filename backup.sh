@@ -15,7 +15,7 @@ while true; do
     echo "Server reachable, initializing repository..."
     restic init --repo ${RESTIC_REPO} || true
     echo "Server reachable, attempting backup..."
-    if restic backup /data /postgres --repo ${RESTIC_REPO} --host immich; then
+    if restic backup /data /postgres --repo ${RESTIC_REPO} --host immich --lock-wait=5m; then
       echo "Backup completed successfully"
     else
       echo "Backup failed (remote unreachable?)"
