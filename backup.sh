@@ -18,7 +18,9 @@ while true; do
     if pgrep -f "restic backup" > /dev/null 2>&1; then
       echo "Backup already running, skipping..."
     elif restic backup /data /postgres --repo ${RESTIC_REPO} --host immich; then
-      echo "Backup completed successfully"
+      BACKUP_TIME=$(date '+%Y-%m-%d %H:%M:%S')
+      echo "Backup completed successfully at ${BACKUP_TIME}"
+      echo "${BACKUP_TIME}" > /data/backup_state.txt
     else
       echo "Backup failed (remote unreachable?)"
     fi
