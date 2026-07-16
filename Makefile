@@ -5,8 +5,8 @@ up:
 	docker compose up
 
 down:
-	sudo tailscale serve --https=2284 off
 	docker compose down
+	sudo tailscale serve --https=2284 off
 
 stop:
 	docker compose stop
