@@ -73,7 +73,7 @@ services:
   backup:
     image: restic/restic:latest
     container_name: immich_backup
-    restart: unless-stopped
+    restart: "no"
     env_file:
       - .env
     network_mode: host
@@ -91,12 +91,6 @@ services:
           memory: 1G
         reservations:
           memory: 64M
-    healthcheck:
-      test: ["CMD", "restic", "version"]
-      interval: 30m
-      timeout: 5s
-      retries: 3
-      start_period: 1m
 
 volumes:
   model-cache:

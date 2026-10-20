@@ -2,7 +2,9 @@
 
 up:
 	sudo tailscale serve --bg --https=2284 2283
-	docker compose up
+	docker compose up &
+	socat TCP-LISTEN:2285,bind=100.106.199.81,reuseaddr,fork \
+	  EXEC:$(PWD)/backup-trigger.sh &
 
 down:
 	docker compose down
